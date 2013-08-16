@@ -52,9 +52,6 @@ for version in VERSIONS:
             status='Published',distro_arch_series=url_to_check):
             # Get download count
             count = individual_archive.getDownloadCount()
-            # Get the package version
-            packagevers='~'.join(individual_archive.binary_package_version.\
-                split('~')[:-1])
 
             result.append(
                 [
