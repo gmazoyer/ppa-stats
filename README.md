@@ -7,7 +7,7 @@ Requirements
 ------------
 
   * launchpadlib --> https://help.launchpad.net/API/launchpadlib
-  * texttable    --> https://pypi.python.org/pypi/texttable/
+  * texttable    --> https://pypi.python.org/pypi/texttable/ (optional)
 
 What is it?
 -----------

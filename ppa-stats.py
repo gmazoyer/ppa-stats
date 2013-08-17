@@ -7,8 +7,14 @@
 
 import sys, os
 import time, datetime
-from texttable import Texttable
 from launchpadlib.launchpad import Launchpad
+
+# Define if we can use ASCII art tables
+use_table = True
+try:
+    from texttable import Texttable
+except:
+    use_table = False
 
 # For reference: "ppa:ownername/archivename" or
 # "https://launchpad.net/~ownername/+archive/archive-name"
@@ -34,8 +40,9 @@ archive = owner.getPPAByName(name=PPANAME)
 base_url = 'https://api.launchpad.net/devel/ubuntu/{}/{}'
 
 # Print heading
-print 'Download stats for ' + PPAOWNER + ' PPA'  
-print '----------------------------------------------'
+header = 'Download stats for ' + PPAOWNER + ' PPA'
+print header
+print '-' * len(header)
 
 # For each version
 for version in VERSIONS:
@@ -62,9 +69,17 @@ for version in VERSIONS:
                 ]
             )
 
-    # Show the result in a beautiful table
-    table = Texttable()
-    table.set_cols_dtype([ 't', 't', 't', 'i' ])
-    table.set_cols_align([ 'l', 'r', 'r', 'r' ])
-    table.add_rows(result)
-    print table.draw()
+    if not use_table:
+        # Simple terminal output
+        for value in result:
+            print value[0] + "\t" + value[1] + "\t" + value[2] + "\t" + \
+            value[3]
+    else:
+        # Show the result in a beautiful table
+        table = Texttable()
+
+        table.set_cols_dtype([ 't', 't', 't', 'i' ])
+        table.set_cols_align([ 'l', 'r', 'r', 'r' ])
+        table.add_rows(result)
+
+        print table.draw()
