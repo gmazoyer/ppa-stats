@@ -31,7 +31,7 @@ owner = lp_login.people[PPAOWNER]
 archive = owner.getPPAByName(name=PPANAME)
 
 # Base URL to Launchpad API
-base_url = 'https://api.launchpad.net/devel/ubuntu/'
+base_url = 'https://api.launchpad.net/devel/ubuntu/{}/{}'
 
 # Print heading
 print 'Download stats for ' + PPAOWNER + ' PPA'  
@@ -46,10 +46,10 @@ for version in VERSIONS:
 
     # For each architecture
     for arch in ARCHS:
-        url_to_check = base_url + version + '/' + arch
+        url_to_check = base_url.format(version, arch)
 
         for individual_archive in archive.getPublishedBinaries(
-            status='Published',distro_arch_series=url_to_check):
+            status='Published', distro_arch_series=url_to_check):
             # Get download count
             count = individual_archive.getDownloadCount()
 
