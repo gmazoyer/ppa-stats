@@ -5,8 +5,6 @@
 #   Guillaume Mazoyer <gmazoyer@gravitons.in>
 #
 
-import sys, os
-import time, datetime
 from launchpadlib.launchpad import Launchpad
 
 # Define if we can use ASCII art tables
@@ -24,13 +22,14 @@ PPAOWNER = 'java-gnome'
 # Name of the PPA you would like the stats for.
 PPANAME = 'ppa'
 # System CPU architecture you would like the stats for.
-ARCHS = [ 'i386', 'amd64' ]
+ARCHS = ['i386', 'amd64']
 # Versions of Ubuntu to check.
-VERSIONS = [ 'precise', 'quantal', 'raring' ]
+VERSIONS = ['precise', 'quantal', 'raring']
 
 # Login into Launchpad Anoymously
 lp_login = Launchpad.login_anonymously('ppastats', 'edge',
-    "~/.launchpadlib/cache/", version='devel')
+                                       "~/.launchpadlib/cache/",
+                                       version='devel')
 # PPA owner
 owner = lp_login.people[PPAOWNER]
 # PPA name
@@ -49,14 +48,14 @@ for version in VERSIONS:
     print ''
     print 'Packages for ' + version
 
-    result = [ [ 'Package', 'Version', 'Arch', 'Count' ] ]
+    result = [['Package', 'Version', 'Arch', 'Count']]
 
     # For each architecture
     for arch in ARCHS:
         url_to_check = base_url.format(version, arch)
 
         for individual_archive in archive.getPublishedBinaries(
-            status='Published', distro_arch_series=url_to_check):
+                status='Published', distro_arch_series=url_to_check):
             # Get download count
             count = individual_archive.getDownloadCount()
 
@@ -73,13 +72,13 @@ for version in VERSIONS:
         # Simple terminal output
         for value in result:
             print value[0] + "\t" + value[1] + "\t" + value[2] + "\t" + \
-            value[3]
+                value[3]
     else:
         # Show the result in a beautiful table
         table = Texttable()
 
-        table.set_cols_dtype([ 't', 't', 't', 'i' ])
-        table.set_cols_align([ 'l', 'r', 'r', 'r' ])
+        table.set_cols_dtype(['t', 't', 't', 'i'])
+        table.set_cols_align(['l', 'r', 'r', 'r'])
         table.add_rows(result)
 
         print table.draw()
