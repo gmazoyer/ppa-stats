@@ -19,13 +19,8 @@ except:
 # For reference: "ppa:ownername/archivename" or
 # "https://launchpad.net/~ownername/+archive/archive-name"
 
-# System CPU architecture you would like the stats for.
-ARCHS = ['i386', 'amd64']
-# Versions of Ubuntu to check.
-VERSIONS = ['precise', 'quantal', 'raring']
 
-
-def process_ppa_stats(ppa_owner, ppa_name):
+def process_ppa_stats(ppa_owner, ppa_name, versions, archs):
     # Login into Launchpad Anoymously
     lp_login = Launchpad.login_anonymously('ppastats', 'edge',
                                            "~/.launchpadlib/cache/",
@@ -44,14 +39,14 @@ def process_ppa_stats(ppa_owner, ppa_name):
     print '-' * len(header)
 
     # For each version
-    for version in VERSIONS:
+    for version in versions:
         print ''
         print 'Packages for ' + version
 
         result = [['Package', 'Version', 'Arch', 'Count']]
 
         # For each architecture
-        for arch in ARCHS:
+        for arch in archs:
             url_to_check = base_url.format(version, arch)
 
             for individual_archive in archive.getPublishedBinaries(
@@ -85,9 +80,13 @@ def process_ppa_stats(ppa_owner, ppa_name):
 def usage():
     print "Usage: " + sys.argv[0] + " [OPTION]..."
     print ""
-    print "  -h, --help \t display this help message"
-    print "  -p, --ppa  \t specify the PPA to use with the following"
-    print "             \t   format ppa:owner/name"
+    print "  -a, --archs    \t specify the architectures (separated by"
+    print "                 \t   commas) to use"
+    print "  -h, --help     \t display this help message"
+    print "  -p, --ppa      \t specify the PPA to use with the following"
+    print "                 \t   format ppa:owner/name"
+    print "  -v, --versions \t specify the Ubuntu versions (separated by"
+    print "                 \t   commas) to use"
     print ""
     print "Exit status:"
     print " 0  if OK,"
@@ -102,10 +101,13 @@ def usage():
 def main(argv):
     ppa_owner = "java-gnome"
     ppa_name = "ppa"
+    versions = ['precise', 'quantal', 'raring']
+    archs = ['i386', 'amd64']
 
     try:
         # Parse the arguments given via the CLI
-        opts, args = getopt.getopt(argv, "hp:", ["help", "ppa="])
+        opts, args = getopt.getopt(argv, "hp:v:a:",
+                                   ["help", "ppa=", "versions=", "archs="])
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -119,9 +121,13 @@ def main(argv):
             split = arg.split("/")
             ppa_owner = split[0].split(":")[1]
             ppa_name = split[1]
+        elif opt in ("-v", "--versions"):
+            versions = arg.split(",")
+        elif opt in ("-a", "--archs"):
+            archs = arg.split(",")
 
     # Process the stats
-    process_ppa_stats(ppa_owner, ppa_name)
+    process_ppa_stats(ppa_owner, ppa_name, versions, archs)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
