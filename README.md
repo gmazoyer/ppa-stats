@@ -13,7 +13,8 @@ What is it?
 -----------
 
 This code is based on the one made by Sam Hewitt.
-http://www.snwh.org/files/generic-ppa-logging-script
+
+http://snwh.org/blog/2013-08-15-for-the-obsessive-data-hog-logging-your-launchpad-ppa
 
 It was modified to:
 
