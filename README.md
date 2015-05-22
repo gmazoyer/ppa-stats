@@ -6,15 +6,13 @@ Show statistics for a given PPA.
 Requirements
 ------------
 
-  * launchpadlib --> https://help.launchpad.net/API/launchpadlib
-  * texttable    --> https://pypi.python.org/pypi/texttable/ (optional)
+  * [launchpadlib](https://help.launchpad.net/API/launchpadlib)
+  * [texttable](https://pypi.python.org/pypi/texttable/) (optional)
 
 What is it?
 -----------
 
-This code is based on the one made by Sam Hewitt.
-
-http://snwh.org/blog/2013-08-15-for-the-obsessive-data-hog-logging-your-launchpad-ppa
+This code is based on the one made by [Sam Hewitt](http://snwh.org/blog/2013-08-15-for-the-obsessive-data-hog-logging-your-launchpad-ppa).
 
 It was modified to:
 

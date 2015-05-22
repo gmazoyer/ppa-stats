@@ -101,7 +101,7 @@ def usage():
 def main(argv):
     ppa_owner = 'java-gnome'
     ppa_name = 'ppa'
-    versions = ['lucid', 'precise', 'saucy', 'trusty']
+    versions = ['precise', 'trusty', 'utopic', 'vivid']
     archs = ['i386', 'amd64']
 
     try:
