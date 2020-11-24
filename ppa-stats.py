@@ -35,13 +35,13 @@ def process_ppa_stats(ppa_owner, ppa_name, versions, archs):
 
     # Print heading
     header = 'Download stats for ' + ppa_owner + ' PPA'
-    print header
-    print '-' * len(header)
+    print (header)
+    print ('-' * len(header))
 
     # For each version
     for version in versions:
-        print ''
-        print 'Packages for ' + version
+        print ('')
+        print ('Packages for ' + version)
 
         result = [['Package', 'Version', 'Arch', 'Count']]
 
@@ -64,8 +64,8 @@ def process_ppa_stats(ppa_owner, ppa_name, versions, archs):
         if not use_table:
             # Simple terminal output
             for value in result:
-                print value[0] + "\t" + value[1] + "\t" + value[2] + "\t" + \
-                    value[3]
+                print (value[0] + "\t" + value[1] + "\t" + value[2] + "\t" + \
+                    value[3])
         else:
             # Show the result in a beautiful table
             table = Texttable()
@@ -74,28 +74,28 @@ def process_ppa_stats(ppa_owner, ppa_name, versions, archs):
             table.set_cols_align(['l', 'r', 'r', 'r'])
             table.add_rows(result)
 
-            print table.draw()
+            print (table.draw())
 
 
 def usage():
-    print "Usage: " + sys.argv[0] + " [OPTION]..."
-    print ""
-    print "  -a, --archs    \t specify the architectures (separated by"
-    print "                 \t   commas) to use"
-    print "  -h, --help     \t display this help message"
-    print "  -p, --ppa      \t specify the PPA to use with the following"
-    print "                 \t   format ppa:owner/name"
-    print "  -v, --versions \t specify the Ubuntu versions (separated by"
-    print "                 \t   commas) to use"
-    print ""
-    print "Exit status:"
-    print " 0  if OK,"
-    print " 1  if minor problems (e.g., cannot access PPA),"
-    print " 2  if serious trouble (e.g., cannot access command-line argument)."
-    print ""
-    print "Report ppa-stats bugs to:"
-    print "    <https://github.com/respawner/ppa-stats/issues>"
-    print "ppa-stats home page: <https://github.com/respawner/ppa-stats>"
+    print ("Usage: " + sys.argv[0] + " [OPTION]...")
+    print ("")
+    print ("  -a, --archs    \t specify the architectures (separated by")
+    print ("                 \t   commas) to use")
+    print ("  -h, --help     \t display this help message")
+    print ("  -p, --ppa      \t specify the PPA to use with the following")
+    print ("                 \t   format ppa:owner/name")
+    print ("  -v, --versions \t specify the Ubuntu versions (separated by")
+    print ("                 \t   commas) to use")
+    print ("")
+    print ("Exit status:")
+    print (" 0  if OK,")
+    print (" 1  if minor problems (e.g., cannot access PPA),")
+    print (" 2  if serious trouble (e.g., cannot access command-line argument).")
+    print ("")
+    print ("Report ppa-stats bugs to:")
+    print ("    <https://github.com/respawner/ppa-stats/issues>")
+    print ("ppa-stats home page: <https://github.com/respawner/ppa-stats>")
 
 
 def main(argv):
